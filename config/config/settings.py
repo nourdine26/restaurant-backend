@@ -111,3 +111,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
     'https://restaurant-backend-1-1g8u.onrender.com',
 ]
+# Création automatique du superutilisateur pour Render
+import os
+if not os.environ.get('RENDER'):  # Seulement sur Render
+    try:
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        if not User.objects.filter(username='admin').exists():
+            User.objects.create_superuser('admin', '', 'admin123')
+            print("✅ Superutilisateur admin créé avec succès !")
+    except:
+        pass
