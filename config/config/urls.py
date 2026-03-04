@@ -7,6 +7,12 @@ from menu.views import CategorieViewSet, PlatViewSet
 from commandes.views import TableViewSet, CommandeViewSet
 from reservations.views import ReservationViewSet
 
+def create_admin(request):
+    User = get_user_model()
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', '', 'admin123')
+        return HttpResponse("✅ Admin créé avec succès ! Utilisateur: admin, Mot de passe: admin123")
+    return HttpResponse("✅ Admin existe déjà ! Vous pouvez vous connecter avec admin/admin123")
 router = DefaultRouter()
 router.register(r'categories', CategorieViewSet)
 router.register(r'plats', PlatViewSet)
