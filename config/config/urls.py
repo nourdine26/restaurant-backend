@@ -6,13 +6,17 @@ from rest_framework.routers import DefaultRouter
 from menu.views import CategorieViewSet, PlatViewSet
 from commandes.views import TableViewSet, CommandeViewSet
 from reservations.views import ReservationViewSet
+from django.contrib.auth import get_user_model  # 👈 IMPORT MANQUANT
+from django.http import HttpResponse  # 👈 IMPORT MANQUANT
 
+# Fonction pour créer l'admin
 def create_admin(request):
     User = get_user_model()
     if not User.objects.filter(username='admin').exists():
         User.objects.create_superuser('admin', '', 'admin123')
         return HttpResponse("✅ Admin créé avec succès ! Utilisateur: admin, Mot de passe: admin123")
     return HttpResponse("✅ Admin existe déjà ! Vous pouvez vous connecter avec admin/admin123")
+
 router = DefaultRouter()
 router.register(r'categories', CategorieViewSet)
 router.register(r'plats', PlatViewSet)
@@ -22,6 +26,7 @@ router.register(r'reservations', ReservationViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('create-admin/', create_admin),  # 👈 LIGNE AJOUTÉE
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
 ]
