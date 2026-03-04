@@ -1,10 +1,5 @@
 services:
   - type: web
     name: restaurant-backend
-    runtime: python
-    buildCommand: |
-      cd config
-      pip install -r requirements.txt
-      python manage.py collectstatic --noinput
-      python manage.py migrate
-    startCommand: cd config && gunicorn config.wsgi:application
+    env: docker
+    dockerfilePath: ./Dockerfile
