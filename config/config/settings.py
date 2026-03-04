@@ -107,3 +107,7 @@ REST_FRAMEWORK = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Sécurité CSRF pour Render
+CSRF_TRUSTED_ORIGINS = [
+    'https://restaurant-backend-1-1g8u.onrender.com',
+]
