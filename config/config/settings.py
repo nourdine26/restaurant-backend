@@ -15,6 +15,7 @@ ALLOWED_HOSTS = [
     'restaurant-backend-1-1g8u.onrender.com',
     'localhost',
     '127.0.0.1',
+    '.onrender.com',
 ]
 # Application definition
 INSTALLED_APPS = [
